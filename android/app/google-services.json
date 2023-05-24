@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "971432344887",
+    "project_id": "flutter-project-sara-pokedex",
+    "storage_bucket": "flutter-project-sara-pokedex.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:971432344887:android:d160dd6b85020dba97aeb2",
+        "android_client_info": {
+          "package_name": "com.example.flutterproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "971432344887-pgpgd62kmrmfd0o01drec9rd48tladg7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYNhUMa0I9VueHZhRqlsvYuLplZJinYok"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "971432344887-pgpgd62kmrmfd0o01drec9rd48tladg7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "971432344887-58att0phjre68em7mjqnguhumgrs1o0q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterproject"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

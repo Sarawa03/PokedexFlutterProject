@@ -10,21 +10,23 @@ import 'package:flutterproject/services/auth/bloc/auth_event.dart';
 import 'package:flutterproject/services/auth/bloc/auth_state.dart';
 import 'package:flutterproject/utilities/dialogs/error_dialog.dart';
 
-class LoginView extends StatefulWidget {
-  const LoginView({super.key});
+class SignUpView extends StatefulWidget {
+  const SignUpView({super.key});
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<SignUpView> createState() => _SignUpViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _SignUpViewState extends State<SignUpView> {
   late final TextEditingController _email;
   late final TextEditingController _password;
+  late final TextEditingController _password2;
 
   @override
   void initState() {
     _email = TextEditingController();
     _password = TextEditingController();
+    _password2 = TextEditingController();
     super.initState();
   }
 
@@ -32,6 +34,7 @@ class _LoginViewState extends State<LoginView> {
   void dispose() {
     _email.dispose();
     _password.dispose();
+    _password2.dispose();
     super.dispose();
   }
 
@@ -39,14 +42,15 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) async {
-        if (state is AuthStateLoggedOut) {
-          if (state.exception is UserNotFoundAuthException) {
-            await showErrorDialog(
-                context, 'Cannot find a user with the entered credentials');
-          } else if (state.exception is WrongPasswordAuthException) {
-            await showErrorDialog(context, 'Wrong credentials');
-          } else if (state.exception is GenericAuthException) {
-            await showErrorDialog(context, 'Authentication error');
+        if (state is AuthStateRegistering) {
+          if (state is WeakPasswordAuthException) {
+            await showErrorDialog(context, 'WeakPassword');
+          } else if (state is EmailAlreadyInUseAuthException) {
+            await showErrorDialog(context, 'Email is already in use');
+          } else if (state is GenericAuthException) {
+            await showErrorDialog(context, 'Failed to register');
+          } else if (state.exception is InvalidEmailAuthException) {
+            await showErrorDialog(context, 'Invalid email');
           }
         }
       },
@@ -58,7 +62,7 @@ class _LoginViewState extends State<LoginView> {
               children: [
                 const SizedBox(height: tFormHeight * 2),
                 const Text(
-                  'Log In',
+                  'Sign Up',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 Form(
@@ -106,6 +110,28 @@ class _LoginViewState extends State<LoginView> {
                           ),
                         ),
                       ),
+                      const SizedBox(height: tFormHeight),
+                      TextFormField(
+                        controller: _password2,
+                        decoration: InputDecoration(
+                          focusColor: tAccentColor,
+                          prefixIcon: const Icon(Icons.password),
+                          labelText: 'Repeat your password',
+                          hintText: 'Repeat your password',
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: const BorderSide(color: tAccentColor),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: const BorderSide(color: tAccentColor),
+                          ),
+                          suffixIcon: const IconButton(
+                            onPressed: null,
+                            icon: Icon(Icons.remove_red_eye_sharp),
+                          ),
+                        ),
+                      ),
                       const SizedBox(height: tFormHeight - 10),
                       const Align(
                         alignment: Alignment.centerRight,
@@ -119,17 +145,21 @@ class _LoginViewState extends State<LoginView> {
                           onPressed: () async {
                             final email = _email.text;
                             final password = _password.text;
-                            context.read<AuthBloc>().add(
-                                  AuthEventLogIn(
+                            final password2 = _password2.text;
+                            if (password != password2) {
+                              await showErrorDialog(
+                                  context, 'Password doesnt match');
+                            } else {
+                              context.read<AuthBloc>().add(AuthEventRegister(
                                     email,
                                     password,
-                                  ),
-                                );
+                                  ));
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: tAccentColor),
                           child: const Text(
-                            'LOG IN',
+                            'SIGN UP',
                             style: TextStyle(color: Colors.black),
                           ),
                         ),
@@ -139,13 +169,13 @@ class _LoginViewState extends State<LoginView> {
                         child: ElevatedButton(
                           onPressed: () {
                             context.read<AuthBloc>().add(
-                                  const AuthEventShouldRegister(),
+                                  const AuthEventLogOut(),
                                 );
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: tAccentColor),
                           child: const Text(
-                            'SIGN UP',
+                            'LOG IN',
                             style: TextStyle(color: Colors.black),
                           ),
                         ),
@@ -189,7 +219,7 @@ class _LoginViewState extends State<LoginView> {
                             width: 20.0),
                         onPressed: () {},
                         label: const Text(
-                          'Sign-In with Google',
+                          'Sign with Google',
                           style: TextStyle(color: Colors.black),
                         ),
                       ),

@@ -8,7 +8,7 @@ const tAccentColor = Color(0xfffaa579);
 const tDetailsColor = Color(0xff3e646a);
 
 const tWhiteColor = Colors.white;
-const tDarkColor = Color(0xff000000);
+const tBlack = Color(0xff000000);
 const tLightGrey = Color(0xffc8c8c8);
 
 // -- STATS COLORS

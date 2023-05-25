@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterproject/constants/colors.dart';
-import 'package:flutterproject/services/auth/bloc/auth_bloc.dart';
-import 'package:flutterproject/services/auth/bloc/auth_event.dart';
 import 'package:flutterproject/ui/navigation_screens/account_view.dart';
 import 'package:flutterproject/ui/navigation_screens/favorites_view.dart';
 import 'package:flutterproject/ui/navigation_screens/home_view.dart';

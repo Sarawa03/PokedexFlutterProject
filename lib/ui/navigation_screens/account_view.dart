@@ -5,7 +5,6 @@ import 'package:flutterproject/services/auth/auth_services.dart';
 import 'package:flutterproject/services/auth/bloc/auth_bloc.dart';
 import 'package:flutterproject/services/auth/bloc/auth_event.dart';
 import 'package:flutterproject/services/auth/bloc/auth_state.dart';
-import 'package:flutterproject/utilities/dialogs/logout_dialog.dart';
 
 class AccountView extends StatefulWidget {
   const AccountView({super.key});

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterproject/constants/colors.dart';
 import 'package:flutterproject/constants/sizes.dart';
@@ -224,7 +223,11 @@ class _SignUpViewState extends State<SignUpView> {
                           icon: const Image(
                               image: AssetImage('assets/images/google_img.png'),
                               width: 20.0),
-                          onPressed: () {},
+                          onPressed: () {
+                            context
+                                .read<AuthBloc>()
+                                .add(const AuthEventSignInWithGoogle());
+                          },
                           label: const Text(
                             'Sign with Google',
                             style: TextStyle(color: Colors.black),

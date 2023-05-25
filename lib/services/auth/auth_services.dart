@@ -19,10 +19,7 @@ class AuthService implements AuthProvider {
   AuthUser? get currentuser => provider.currentuser;
 
   @override
-  Future<AuthUser> logIn({
-    required String email,
-    required String password,
-  }) =>
+  Future<AuthUser> logIn({required String email, required String password}) =>
       provider.logIn(email: email, password: password);
 
   @override
@@ -37,4 +34,7 @@ class AuthService implements AuthProvider {
   @override
   Future<void> sendPasswordReset({required String toEmail}) =>
       provider.sendPasswordReset(toEmail: toEmail);
+
+  @override
+  Future<AuthUser> signInWithGoogle() => provider.signInWithGoogle();
 }

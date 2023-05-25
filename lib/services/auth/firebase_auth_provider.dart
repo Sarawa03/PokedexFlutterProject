@@ -4,7 +4,8 @@ import 'package:flutterproject/services/auth/auth_user.dart';
 import 'package:flutterproject/services/auth/auth_provider.dart';
 import 'package:flutterproject/services/auth/auth_exceptions.dart';
 import 'package:firebase_auth/firebase_auth.dart'
-    show FirebaseAuth, FirebaseAuthException;
+    show FirebaseAuth, FirebaseAuthException, GoogleAuthProvider;
+import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthProvider implements AuthProvider {
   @override
@@ -112,6 +113,29 @@ class FirebaseAuthProvider implements AuthProvider {
           throw UserNotFoundAuthException();
         default:
           throw GenericAuthException();
+      }
+    } catch (_) {
+      throw GenericAuthException();
+    }
+  }
+
+  @override
+  Future<AuthUser> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication gAuth = await gUser!.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: gAuth.accessToken,
+        idToken: gAuth.idToken,
+      );
+
+      await FirebaseAuth.instance.signInWithCredential(credential);
+      final user = currentuser;
+      if (user == null) {
+        throw UserNotLoggedInAuthException();
+      } else {
+        return user;
       }
     } catch (_) {
       throw GenericAuthException();

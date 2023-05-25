@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutterproject/constants/colors.dart';
+import 'package:flutterproject/constants/theme_color.dart';
 import 'package:flutterproject/services/auth/bloc/auth_bloc.dart';
 import 'package:flutterproject/services/auth/bloc/auth_event.dart';
 import 'package:flutterproject/services/auth/bloc/auth_state.dart';
 import 'package:flutterproject/services/auth/firebase_auth_provider.dart';
-import 'package:flutterproject/views/login_view.dart';
-import 'package:flutterproject/views/register_view.dart';
-import 'package:flutterproject/views/test_view.dart';
-import 'package:flutterproject/views/verify_email_view.dart';
+import 'package:flutterproject/ui/views/login_view.dart';
+import 'package:flutterproject/ui/views/register_view.dart';
+import 'package:flutterproject/ui/views/main_view.dart';
+import 'package:flutterproject/ui/views/verify_email_view.dart';
 
 import 'helpers/loading/loading_screen.dart';
 
@@ -16,7 +18,8 @@ void main() {
   runApp(MaterialApp(
     title: 'Flutter Demo',
     theme: ThemeData(
-      primarySwatch: Colors.blue,
+      primarySwatch: ColorTheme.myTheme,
+      scaffoldBackgroundColor: tbackgroundColor,
     ),
     home: BlocProvider<AuthBloc>(
       create: (context) => AuthBloc(FirebaseAuthProvider()),
@@ -47,7 +50,7 @@ class HomePage extends StatelessWidget {
       },
       builder: (context, state) {
         if (state is AuthStateLoggedIn) {
-          return const TestView();
+          return const MainView();
         } else if (state is AuthStateLoggedOut) {
           return const LoginView();
         } else if (state is AuthStateNeedsVerification) {

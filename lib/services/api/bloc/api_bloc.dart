@@ -13,5 +13,19 @@ class ApiBloc extends Bloc<ApiEvent, ApiState> {
             isLoading: true, pokemon: randomPokemons));
       },
     );
+
+    on<ApiEventSearchPokemonByIdOrName>(
+      (event, emit) async {
+        final searchResults =
+            await repository.searchPokemonByIdOrName(event.query);
+        emit(ApiStateSearchPokemonByIdOrName(
+            isLoading: true, pokemon: searchResults));
+      },
+    );
+    on<ApiEventDetails>(
+      (event, emit) async {
+        emit(ApiStateDetails(isLoading: true, pokemon: event.pokemon));
+      },
+    );
   }
 }

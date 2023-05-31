@@ -44,6 +44,10 @@ dependencies:
   equatable: ^2.0.5
   google_sign_in: ^6.1.1
   http: ^0.13.6
+  swipe_refresh: ^1.0.2
+  liquid_pull_to_refresh: ^3.0.1
+  intl: ^0.18.1
+  flutter_svg: ^2.0.6
 
 dev_dependencies:
   flutter_test:

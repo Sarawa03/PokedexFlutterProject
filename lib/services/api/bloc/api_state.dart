@@ -19,3 +19,16 @@ class ApiStateGetRandomPokemons extends ApiState {
       : super(
             isLoading: isLoading, loadingText: 'Generating random pokemon...');
 }
+
+class ApiStateSearchPokemonByIdOrName extends ApiState {
+  final List<PokemonModel> pokemon;
+  ApiStateSearchPokemonByIdOrName(
+      {required bool isLoading, required this.pokemon})
+      : super(isLoading: isLoading, loadingText: 'Searching...');
+}
+
+class ApiStateDetails extends ApiState {
+  final PokemonModel pokemon;
+  const ApiStateDetails({required bool isLoading, required this.pokemon})
+      : super(isLoading: isLoading);
+}

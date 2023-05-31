@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 const tbackgroundColor = Color(0xffecf9fb);
 const tPrimaryColor = Color(0xffb1eaf4);
+const tSearchBarColor = Color.fromARGB(255, 147, 204, 213);
 const tAccentColor = Color(0xfffaa579);
 const tDetailsColor = Color(0xff3e646a);
 

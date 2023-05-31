@@ -15,7 +15,7 @@ class PokemonModel {
   String name;
   Sprites sprites;
   List<StatElement> stats;
-  List<Type> types;
+  List<PokemonType> types;
   int weight;
 
   PokemonModel({
@@ -35,7 +35,8 @@ class PokemonModel {
         sprites: Sprites.fromJson(json["sprites"]),
         stats: List<StatElement>.from(
             json["stats"].map((x) => StatElement.fromJson(x))),
-        types: List<Type>.from(json["types"].map((x) => Type.fromJson(x))),
+        types: List<PokemonType>.from(
+            json["types"].map((x) => PokemonType.fromJson(x))),
         weight: json["weight"],
       );
 
@@ -102,18 +103,18 @@ class TypeClass {
       };
 }
 
-class Type {
+class PokemonType {
   TypeClass? type;
   int? slot;
   String? name;
 
-  Type({
+  PokemonType({
     this.type,
     this.slot,
     this.name,
   });
 
-  factory Type.fromJson(Map<String, dynamic> json) => Type(
+  factory PokemonType.fromJson(Map<String, dynamic> json) => PokemonType(
         type: json["type"] == null ? null : TypeClass.fromJson(json["type"]),
         slot: json["slot"],
         name: json["name"],
